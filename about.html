@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Looksmaxing - GlowUp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2A2D34;
+            --secondary: #E8C547;
+            --accent: #D7263D;
+            --text: #F0F4EF;
+            --background: #1C1E26;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(42, 45, 52, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .hero-section {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, 
+                rgba(42, 45, 52, 0.9),
+                rgba(42, 45, 52, 0.7)),
+                url('path-to-your-hero-image.jpg');
+            background-size: cover;
+            background-position: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease forwards 0.3s;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .image-container:hover img {
+            transform: rotate(2deg) scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(42, 45, 52, 0) 0%,
+                rgba(42, 45, 52, 0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            color: var(--text);
+        }
+
+        .stats-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: all 0.4s ease;
+        }
+
+        .stats-card:hover {
+            transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlight {
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight:hover::after {
+            transform: scaleX(1);
+        }
+
+        .parallax-section {
+            height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 4rem 0;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="color: var(--secondary); font-weight: 700;">GLOWUP</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#philosophy">Philosophy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#science">Science</a></li>
+                    <li class="nav-link"><a class="nav-link" href="#stats">Statistics</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-3 mb-4">The Science of <span class="highlight">Attraction</span></h1>
+            <p class="lead">Mastering the evolutionary psychology behind human mate selection</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <section id="philosophy" class="mb-5">
+            <h2 class="mb-4 highlight">Why Looks Matter in Dating</h2>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="looksmaxingimage.webp" alt="Looksmaxed guy">
+                    <div class="image-overlay">
+                        <h3>Confidence Amplification</h3>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="firstimpression.webp" alt="First Impressions">
+                    <div class="image-overlay">
+                        <h3>First Impression Dynamics</h3>
+                    </div>
+                </div>
+            </div>
+            <p class="stats-card">
+                Evolutionary psychologists suggest that physical appearance serves as a 
+                <span class="highlight">genetic fitness indicator</span>. Our brains are wired to 
+                assess potential mates within the first 7 seconds of interaction, with physical 
+                attractiveness accounting for <b>55%</b> of initial attraction according to recent studies.
+            </p>
+        </section>
+
+        <section id="science" class="mb-5">
+            <h2 class="mb-4 highlight">Biological Imperatives</h2>
+            <div class="stats-card">
+                <h3 class="mb-3">Key Findings</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-3">⏺️ 78% of dating decisions are made based on physical appearance</li>
+                    <li class="mb-3">⏺️ Attractive people receive 10x more dating opportunities</li>
+                    <li class="mb-3">⏺️ Symmetrical faces are perceived as 35% more trustworthy</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.content-section, .stats-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.hero-section').style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Image hover enhancement
+        document.querySelectorAll('.image-container').forEach(container => {
+            container.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looksmaxing Journey - GlowUp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #264653;
+            --secondary: #2A9D8F;
+            --accent: #E9C46A;
+            --highlight: #F4A261;
+            --text: #FDFEFE;
+            --background: #1A1A1A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .hero-journey {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, 
+                rgba(38, 70, 83, 0.9),
+                rgba(42, 157, 143, 0.7)),
+                url('journey-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-journey::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, var(--primary) 100%);
+            animation: pulseGlow 4s infinite;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+        }
+
+        .guide-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .guide-image {
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transform: rotate(0deg);
+            transition: all 0.4s ease;
+        }
+
+        .guide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .guide-card:hover .guide-image {
+            transform: rotate(2deg);
+        }
+
+        .guide-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .progress-tracker {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .progress-step {
+            width: 15px;
+            height: 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--highlight);
+            transform: scale(1.3);
+        }
+
+        .routine-timeline {
+            position: relative;
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            margin: 2rem 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .diet-plan {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .diet-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .diet-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 4rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section-title.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-tooltip {
+            position: absolute;
+            background: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .guide-card:hover .floating-tooltip {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="color: var(--accent);">GLOWUP</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="journey.html">Journey</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-journey">
+        <div class="container text-center">
+            <h1 class="display-3">Your Personalized <span class="highlight">GlowUp Journey</span></h1>
+            <p class="lead mt-3">Transform your appearance through science-backed strategies</p>
+        </div>
+    </section>
+
+    <!-- Progress Tracker -->
+    <div class="progress-tracker">
+        <div class="progress-step active"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Skincare Section -->
+        <section class="guide-section">
+            <h2 class="section-title">Essential Tools & Products</h2>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <img src="skincare.webp" alt="Skincare Routine">
+                        <div class="floating-tooltip">Daily Regimen Essentials</div>
+                    </div>
+                    <h3 class="mt-3">Optimal Skincare Routine</h3>
+                    <ul class="mt-2">
+                        <li>Morning: Cleanser → Vitamin C Serum → Moisturizer → SPF 50+</li>
+                        <li>Evening: Double Cleanse → Retinol → Hyaluronic Acid → Night Cream</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <img src="vitamins-and-supplements.webp" alt="Supplements">
+                        <div class="floating-tooltip">Internal Enhancement</div>
+                    </div>
+                    <h3 class="mt-3">Essential Supplements</h3>
+                    <ul>
+                        <li>Collagen Peptides - Skin Elasticity</li>
+                        <li>Zinc - Hormonal Balance</li>
+                        <li>Omega-3 - Skin Hydration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Routine Timeline -->
+        <section class="routine-timeline">
+            <h2 class="section-title">90-Day Transformation Plan</h2>
+            <div class="timeline-item">
+                <h3>Phase 1: Detox & Preparation (Day 1-30)</h3>
+                <p>• Daily skin cleansing routine<br>
+                   • Elimination diet implementation<br>
+                   • Basic fitness regimen establishment</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Phase 2: Intensive Improvement (Day 31-60)</h3>
+                <p>• Advanced skincare treatments<br>
+                   • Weight training program<br>
+                   • Microneedling sessions</p>
+            </div>
+        </section>
+
+        <!-- Diet Plan -->
+        <section class="diet-plan">
+            <h2 class="section-title">Optimized Nutrition Plan</h2>
+            <div class="diet-card">
+                <h3>Muscle Building</h3>
+                <p>• 2g protein/kg body weight<br>
+                   • Caloric surplus 300-500kcal<br>
+                   • Creatine supplementation</p>
+            </div>
+            <div class="diet-card">
+                <h3>Fat Loss</h3>
+                <p>• 40% protein macros<br>
+                   • Intermittent fasting 16:8<br>
+                   • EC Stack protocol</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.section-title, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Progress Tracker
+        const progressSteps = document.querySelectorAll('.progress-step');
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 300) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            progressSteps.forEach((step, index) => {
+                if (index === Array.from(document.querySelectorAll('section')).findIndex(s => s.id === currentSection)) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.hero-journey').style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Tooltip Follow
+        document.querySelectorAll('.guide-card').forEach(card => {
+            const tooltip = card.querySelector('.floating-tooltip');
+            card.addEventListener('mousemove', (e) => {
+                tooltip.style.left = `${e.clientX - card.getBoundingClientRect().left + 15}px`;
+                tooltip.style.top = `${e.clientY - card.getBoundingClientRect().top + 15}px`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowUp - Looksmaxing Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #2D3047;
+            --light: #F7FFF7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #e8f5e9 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: var(--dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            height: 80vh;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            background: white;
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-glow {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="color: var(--primary); font-weight: 700;">GLOWUP</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tutorials">Tutorials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="toggleAuthModal()">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero d-flex align-items-center">
+        <div class="container text-center text-white">
+            <h1 class="display-1 mb-4 pulse">Unlock Your Potential</h1>
+            <p class="lead mb-4">Master the art of looksmaxing with our proven strategies</p>
+            <button class="btn-glow" onclick="window.location.href='journey.html'">Start Journey</button>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="tutorials" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: var(--dark);">Featured Tutorials</h2>
+            <div class="video-grid">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/C99cl7_ZtCk?si=Oq5yLv6yaMXtlr59" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/prVABMpcVIY?si=kpOXavmBL5J0Dvop" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wwsAWpUEgwA?si=_Sdlv6NgqFvBxwYN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="auth-modal">
+        <div class="text-end">
+            <button class="btn-close" onclick="toggleAuthModal()"></button>
+        </div>
+        <h3 class="text-center mb-4" style="color: var(--dark);">Welcome Back</h3>
+        <form id="authForm">
+            <div class="mb-3">
+                <input type="email" class="form-input form-control" placeholder="Email" required>
+            </div>
+            <div class="mb-4">
+                <input type="password" class="form-input form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-glow w-100">Continue</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Auth Modal Toggle
+        function toggleAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Confetti Effect
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Form Submission
+        document.getElementById('authForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            triggerConfetti();
+            toggleAuthModal();
+        });
+
+        // Initialize Splide Carousel
+        new Splide('.splide', {
+            type: 'loop',
+            perPage: 3,
+            gap: '2rem',
+            breakpoints: {
+                992: { perPage: 2 },
+                768: { perPage: 1 }
+            }
+        }).mount();
+    </script>
+</body>
+</html>
